@@ -257,8 +257,8 @@ export default function LandingPage({ children }) {
               Development Progress
             </h2>
             <p className="text-xl text-gray-600">
-              We're building something amazing. Here's what's completed and
-              what's coming next.
+              We&apos;re building something amazing. Here&apos;s what&apos;s completed and
+              what&apos;s coming next.
             </p>
           </div>
 
