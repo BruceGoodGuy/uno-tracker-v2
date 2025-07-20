@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 import {
   Plus,
   Users,
@@ -59,20 +60,12 @@ export default function LandingPage({ children }) {
             </div>
             <span className="text-xl font-bold text-gray-900">Uno Scorer</span>
           </div>
-          <Button
-            variant="outline"
-            className="bg-white/50 hover:bg-white/80 border-white/30"
-          >
-            <a
-              href="https://github.com/BruceGoodGuy/uno-tracker-v2"
-              target="_blank"
-              className="flex items-center gap-2 text-gray-900 hover:text-gray-700"
-            >
-              Repository
-              <BookCopy className="w-4 h-4 ml-2" />
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </a>
-          </Button>
+          <Link href="/dev">
+            <Button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white">
+              <Play className="w-5 h-5 mr-2" />
+              Try Demo
+            </Button>
+          </Link>
         </div>
       </header>
 
@@ -102,15 +95,29 @@ export default function LandingPage({ children }) {
 
           {/* Hero Actions */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              disabled={true}
-              className="h-14 px-8 text-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
-              //   onClick={() => setCurrentView("auth")}
+            <Link href="/dev" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="h-14 px-8 text-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+              >
+                <Play className="w-5 h-5 mr-2" />
+                Try Demo
+              </Button>
+            </Link>
+            <a
+              href="https://github.com/BruceGoodGuy/uno-tracker-v2"
+              target="_blank"
+              className="w-full sm:w-auto justify-center flex items-center gap-2 text-gray-900 hover:text-gray-700"
             >
-              <Play className="w-5 h-5 mr-2" />
-              Try Demo
-            </Button>
+              <Button
+                size={"lg"}
+                variant="outline"
+                className="h-14 px-8 text-lg bg-white from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+              >
+                <BookCopy className="w-4 h-4 ml-2" />
+                Source Code
+              </Button>
+            </a>
           </div>
 
           {/* App Preview */}
@@ -257,8 +264,8 @@ export default function LandingPage({ children }) {
               Development Progress
             </h2>
             <p className="text-xl text-gray-600">
-              We&apos;re building something amazing. Here&apos;s what&apos;s completed and
-              what&apos;s coming next.
+              We&apos;re building something amazing. Here&apos;s what&apos;s
+              completed and what&apos;s coming next.
             </p>
           </div>
 
