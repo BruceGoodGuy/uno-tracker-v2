@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/lib/useAuthStore";
+import Loading from "@/app/components/Loading";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -25,9 +26,6 @@ export default function AuthCallbackPage() {
   }, [router, setUser]);
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
-      <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent border-solid rounded-full animate-spin mb-4"></div>
-      <p className="text-lg font-semibold text-blue-600">Loading...</p>
-    </div>
+    <Loading />
   );
 }
