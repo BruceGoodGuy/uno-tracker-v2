@@ -84,6 +84,8 @@ export default function Player() {
     avatar: "",
   });
 
+  const [isEditLoading, setIsEditLoading] = useState(false);
+
   async function handleChangePage(direction) {
     if (direction === "prev" && playersList.offset <= 0) return;
     setIsLoading(true);
@@ -127,7 +129,7 @@ export default function Player() {
 
   async function handleUpdatePlayer() {
     if (!opEditPlayer.playerId) return;
-    setIsLoading(true);
+    setIsEditLoading(true);
     try {
       const validatedPlayer = await playerSchema.validate({
         name: opEditPlayer.name,
@@ -157,12 +159,13 @@ export default function Player() {
       startTransition(() => {
         loadPlayers();
         setEditPlayer({ playerId: null, name: "", avatar: "" });
+        toast.success("Player updated successfully");
       });
     } catch (error) {
       console.log("Error updating player:", error);
       toast.error("Cannot update player");
     } finally {
-      setIsLoading(false);
+      setIsEditLoading(false);
     }
   }
 
@@ -297,10 +300,7 @@ export default function Player() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b px-4 py-4 sticky top-0 z-10">
-        <Link
-          href="/dev/auth"
-          className="flex items-center gap-3"
-        >
+        <Link href="/dev/auth" className="flex items-center gap-3">
           <Button variant="ghost" size="icon" className="w-10 h-10">
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -373,6 +373,7 @@ export default function Player() {
                                 id={`player-name-${player.id}`}
                                 type={"text"}
                                 name={"name"}
+                                disabled={isEditLoading}
                                 value={opEditPlayer.name}
                                 onChange={(e) =>
                                   setEditPlayer((prev) => ({
@@ -380,10 +381,16 @@ export default function Player() {
                                     name: e.target.value,
                                   }))
                                 }
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    handleUpdatePlayer();
+                                  }
+                                }}
                               />
                               <Button
                                 className="mt-2"
                                 onClick={handleUpdatePlayer}
+                                disabled={isEditLoading}
                               >
                                 Update
                               </Button>
@@ -413,34 +420,38 @@ export default function Player() {
                           </div>
                         </div>
                       </div>
-                      <Menubar>
-                        <MenubarMenu>
-                          <MenubarTrigger>
-                            <MoreVertical className="w-4 h-4" />
-                          </MenubarTrigger>
-                          <MenubarContent>
-                            <MenubarItem
-                              onClick={() =>
-                                handleEditPlayer(
-                                  player.id,
-                                  player.name,
-                                  player.avatar
-                                )
-                              }
-                            >
-                              Edit
-                            </MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem
-                              onClick={() =>
-                                handleDeletePlayer(player.id, player.name)
-                              }
-                            >
-                              <span className="text-red-500">Delete</span>
-                            </MenubarItem>
-                          </MenubarContent>
-                        </MenubarMenu>
-                      </Menubar>
+                      {opEditPlayer.playerId === player.id ? (
+                        ""
+                      ) : (
+                        <Menubar>
+                          <MenubarMenu>
+                            <MenubarTrigger>
+                              <MoreVertical className="w-4 h-4" />
+                            </MenubarTrigger>
+                            <MenubarContent>
+                              <MenubarItem
+                                onClick={() =>
+                                  handleEditPlayer(
+                                    player.id,
+                                    player.name,
+                                    player.avatar
+                                  )
+                                }
+                              >
+                                Edit
+                              </MenubarItem>
+                              <MenubarSeparator />
+                              <MenubarItem
+                                onClick={() =>
+                                  handleDeletePlayer(player.id, player.name)
+                                }
+                              >
+                                <span className="text-red-500">Delete</span>
+                              </MenubarItem>
+                            </MenubarContent>
+                          </MenubarMenu>
+                        </Menubar>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

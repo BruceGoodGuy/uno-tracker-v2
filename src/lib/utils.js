@@ -14,6 +14,50 @@ export function shortName(name) {
   return parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase();
 }
 
+export function getDefaultGameName() {
+  const date = new Date();
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const funnyWords = [
+    "Banana",
+    "Waffle",
+    "Noodle",
+    "Penguin",
+    "Unicorn",
+    "Pickle",
+    "Taco",
+    "Muffin",
+    "Socks",
+    "Potato",
+    "Jellybean",
+    "Cupcake",
+    "Marshmallow",
+    "Burrito",
+    "Pumpkin",
+    "Bubble",
+    "Doodle",
+    "Snail",
+    "Pancake",
+    "Llama",
+  ];
+  const dayName = daysOfWeek[date.getDay()];
+  let timeOfDay;
+  const h = date.getHours();
+  if (h >= 5 && h < 12) timeOfDay = "Morning";
+  else if (h >= 12 && h < 17) timeOfDay = "Afternoon";
+  else if (h >= 17 && h < 21) timeOfDay = "Evening";
+  else timeOfDay = "Night";
+  const funnyWord = funnyWords[Math.floor(Math.random() * funnyWords.length)];
+  return `${dayName} ${timeOfDay} ${funnyWord} Game`;
+}
+
 export function createRandomAvatar() {
   const randomSeed = Math.random().toString(36).substring(2); // e.g., "g0qv89u"
   return createAvatar(adventurerNeutral, {
