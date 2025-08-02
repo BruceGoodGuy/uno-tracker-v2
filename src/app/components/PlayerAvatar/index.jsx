@@ -5,10 +5,11 @@ export default function PlayerAvatar({
   avatar,
   name = "Player",
   handleChangeAvatar = null,
+  className = "",
 }) {
   return (
     <Avatar
-      className={"w-12 h-12" + (handleChangeAvatar ? " cursor-pointer" : "")}
+      className={"w-12 h-12" + (handleChangeAvatar ? " cursor-pointer" : "") + " " + className}
       {...(handleChangeAvatar ? { onClick: handleChangeAvatar } : {})}
     >
       <AvatarImage
