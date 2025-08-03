@@ -115,3 +115,39 @@ export function createRandomAvatar() {
     ],
   }).toString();
 }
+
+export function gameDuration(time_start, time_end) {
+  console.log("Calculating game duration:", time_start, time_end);
+  if (!time_start || !time_end) return "N/A";
+  const start = new Date(time_start);
+  const end = new Date(time_end);
+  const durationMs = end - start;
+
+  if (durationMs < 0) return "N/A";
+
+  const hours = Math.floor(durationMs / 3600000);
+  const minutes = Math.floor((durationMs % 3600000) / 60000);
+  const seconds = Math.floor((durationMs % 60000) / 1000);
+  if (hours > 0) {
+    return `${hours}h ${minutes}m ${seconds}s`;
+  }
+  if (minutes > 0) {
+    return `${minutes}m ${seconds}s`;
+  }
+  if (seconds > 0) {
+    return `${seconds}s`;
+  }
+  return "0s";
+}
+
+export function formatDateTime(dateString) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}

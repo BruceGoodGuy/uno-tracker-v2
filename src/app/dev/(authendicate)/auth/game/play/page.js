@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import useAuthStore from "@/lib/useAuthStore";
+import EndgameDialog from "@/app/components/Dialog";
 
 import {
   Dialog,
@@ -72,13 +73,12 @@ const mockActiveGame = {
   events: [],
 };
 export default function GamePlay() {
-  const [editingScore, setEditingScore] = useState(null);
   const [showAddPlayer, setShowAddPlayer] = useState(false);
-  const [newPlayerName, setNewPlayerName] = useState("");
-  const [gameState, setGameState] = useState(mockActiveGame);
   const [game, setGame] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [reload, setReload] = useState({ playerList: 0 });
+  const [showEndGameDialog, setShowEndGameDialog] = useState(false);
+
   const router = useRouter();
 
   const toggleHideDisabledPlayer = useAuthStore(
@@ -87,6 +87,32 @@ export default function GamePlay() {
   const isHideDisabledPlayer = useAuthStore(
     (s) => s.setting.hideDisabledPlayer
   );
+
+  async function handleEndGame() {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/game/ongoing/end`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error("Failed to end game: " + errorData.detail);
+        return;
+      }
+      const data = await response.json();
+      toast.success("Game ended successfully!");
+      router.replace("/dev/auth/game/history?gameId=" + data.game_id);
+    } catch (error) {
+      console.error("Error ending game:", error);
+      toast.error("Failed to end game: " + error.message);
+    }
+  }
 
   async function fetchGame() {
     const response = await fetch(
@@ -236,7 +262,7 @@ export default function GamePlay() {
           <Button
             variant="outline"
             className="flex-1 h-12 bg-transparent"
-            onClick={() => setCurrentView("dashboard")}
+            onClick={() => setShowEndGameDialog(true)}
           >
             End Game
           </Button>
@@ -249,6 +275,15 @@ export default function GamePlay() {
           </Button>
         </div>
       </div>
+
+      <EndgameDialog
+        open={showEndGameDialog}
+        setOpen={setShowEndGameDialog}
+        title="Are you sure you want to end this game?"
+        description="This will finalize the game and declare the winner based on the current scores."
+        label={{ value: "End Game", className: "w-full" }}
+        onAccept={handleEndGame}
+      />
 
       <AddNewPlayer
         gameId={game?.id}

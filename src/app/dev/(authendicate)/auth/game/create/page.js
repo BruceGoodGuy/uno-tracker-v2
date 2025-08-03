@@ -16,9 +16,11 @@ import ScoringRuleForm from "@/app/features/game/create/scoring-rule";
 import PlayerList from "@/app/features/game/create/players";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function newGamePage() {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const router = useRouter();
 
   const [game, onSubmitGame, isPending] = useActionState(submitGameAction, {
     data: {
@@ -88,15 +90,8 @@ export default function newGamePage() {
         }
       }
 
-      return {
-        data: {
-          ...prev.data,
-          name: validatedGame.name,
-        },
-        errors: {
-          name: null,
-        },
-      };
+      router.push("/dev/auth/game/play");
+      toast.success("Game created successfully!");
     } catch (error) {
       if (error.name === "ValidationError") {
         return {

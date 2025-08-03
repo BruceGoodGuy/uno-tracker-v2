@@ -72,7 +72,7 @@ export default function ActiveGame() {
               <Button
                 variant="outline"
                 size="icon"
-                className="w-12 h-12 bg-transparent"
+                className="w-12 h-12 bg-white cursor-pointer"
                 // onClick={() => setCurrentView("viewer")}
               >
                 <Eye className="w-5 h-5" />
