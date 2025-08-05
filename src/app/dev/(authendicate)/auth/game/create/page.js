@@ -18,7 +18,7 @@ import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default function newGamePage() {
+export default function NewGamePage() {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const router = useRouter();
 

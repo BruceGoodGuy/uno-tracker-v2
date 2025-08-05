@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -61,7 +61,7 @@ const mockGameHistory = [
   },
 ];
 
-export default function GameHistory() {
+function GameHistoryContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const gameId = searchParams.get("gameId");
@@ -362,5 +362,13 @@ export default function GameHistory() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function GameHistory() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <GameHistoryContent />
+    </Suspense>
   );
 }
