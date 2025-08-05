@@ -11,10 +11,10 @@ The Ultimate Uno Scoring Experience - Track your Uno games with friends, analyze
 
 ## ✨ Features
 
-- 🎯 **Real-time Score Tracking** - Keep track of scores during live games
+- 🎯 **Real-time Score Tracking** - Keep track of scores during live games (future)
 - 👥 **Multi-player Support** - Add and manage multiple players
 - 📱 **Mobile-First Design** - Optimized for smartphones and tablets
-- 📊 **Game Analytics** - Analyze your performance and game history
+- 📊 **Game Analytics** - Analyze your performance and game history (future)
 - 🏆 **Leaderboards** - See who's the ultimate Uno champion
 - ⚡ **Fast & Responsive** - Built with Next.js and modern web technologies
 - 🎨 **Beautiful UI** - Clean and intuitive interface with animations
@@ -106,9 +106,9 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📋 Roadmap
 
-- [ ] Complete core scoring functionality
-- [ ] Add user authentication
-- [ ] Implement game history
+- [x] Complete core scoring functionality
+- [x] Add user authentication
+- [x] Implement game history
 - [ ] Add statistics and analytics
 - [ ] Mobile app companion
 - [ ] Offline mode support
