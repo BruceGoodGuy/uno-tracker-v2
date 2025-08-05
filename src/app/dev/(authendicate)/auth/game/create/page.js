@@ -107,7 +107,7 @@ export default function newGamePage() {
       toast.error("Failed to create game. Please try again.");
       return {
         data: {
-          name: validatedGame.name,
+          name: validatedGame?.name,
           endSettings,
         },
         errors: null,

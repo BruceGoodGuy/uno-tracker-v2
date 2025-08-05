@@ -167,7 +167,7 @@ export default function GamePlay() {
                 <h1 className="font-semibold text-lg">{game?.name}</h1>
                 <p className="text-sm text-gray-500">
                   Round {game?.match_data ?? 1}
-                  {game?.end_condition === "time" && (
+                  {/* {game?.end_condition === "time" && (
                     <span>
                       {" "}
                       • Target Time Limit: {game?.time_limit} minutes
@@ -184,7 +184,7 @@ export default function GamePlay() {
                       {" "}
                       • Target Round Limit: {game?.max_rounds} rounds
                     </span>
-                  )}
+                  )} */}
                 </p>
               </div>
             )}
@@ -217,7 +217,7 @@ export default function GamePlay() {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => setCurrentView("viewer")}
+                  onClick={() => alert("Feature coming soon!")}
                 >
                   <Eye className="w-4 h-4 mr-2" />
                   Public View

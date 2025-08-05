@@ -83,21 +83,20 @@ export default function GameHistory() {
         }
       );
       if (!response.ok) {
+        console.log(response);
         if (response.status === 404) {
           toast.error("Game not found");
-          router.replace(`/dev/auth`);
+          router.push(`/dev/auth`);
         }
         throw new Error("Network response was not ok");
       }
       const game = await response.json();
       setGame(game);
-      console.log("Fetched game history:", game);
+      setIsLoading(false);
     } catch (error) {
       console.log("Error fetching game history:", error);
       toast.error("Failed to load game history");
-      router.replace(`/dev/auth`);
-    } finally {
-      setIsLoading(false);
+      router.push(`/dev/auth`);
     }
   }
 

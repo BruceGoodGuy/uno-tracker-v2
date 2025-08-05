@@ -53,7 +53,7 @@ export default function ActiveGame() {
                 Round 3
               </Badge>
             </div>
-            <div className="flex justify-between text-sm text-gray-600 mb-4">
+            {/* <div className="flex justify-between text-sm text-gray-600 mb-4">
               <span>{activeGame.total_players} players</span>
               {activeGame.end_condition === "score" && (
                 <span>Target: {activeGame.score_to_win} pts</span>
@@ -64,7 +64,7 @@ export default function ActiveGame() {
               {activeGame.end_condition === "rounds" && (
                 <span>Target: {activeGame.max_rounds} rounds</span>
               )}
-            </div>
+            </div> */}
             <div className="flex gap-2">
               <Link href={`/dev/auth/game/play`} className="flex-1 h-12">
                 <Button className="flex-1 h-12">Continue Game</Button>
@@ -73,7 +73,7 @@ export default function ActiveGame() {
                 variant="outline"
                 size="icon"
                 className="w-12 h-12 bg-white cursor-pointer"
-                // onClick={() => setCurrentView("viewer")}
+                onClick={() => alert("Feature coming soon!")}
               >
                 <Eye className="w-5 h-5" />
               </Button>

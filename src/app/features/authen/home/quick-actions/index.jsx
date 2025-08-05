@@ -19,18 +19,18 @@ export default function QuickActions() {
       className: "w-full h-24 flex-col gap-3 bg-white hover:bg-blue-50",
       link: "/dev/auth/game/player",
     },
-    {
-      icon: <History className="w-6 h-6 text-purple-500" />,
-      label: "Game History",
-      className: "w-full h-20 flex-col gap-2 bg-white hover:bg-purple-50",
-      link: "/dev/auth/game/history",
-    },
-    {
-      icon: <BarChart3 className="w-6 h-6 text-green-500" />,
-      label: "Analytics",
-      className: "w-full h-20 flex-col gap-2 bg-white hover:bg-green-50",
-      link: "/dev/auth/game/analytics",
-    },
+    // {
+    //   icon: <History className="w-6 h-6 text-purple-500" />,
+    //   label: "Game History",
+    //   className: "w-full h-20 flex-col gap-2 bg-white hover:bg-purple-50",
+    //   link: "/dev/auth/game/history",
+    // },
+    // {
+    //   icon: <BarChart3 className="w-6 h-6 text-green-500" />,
+    //   label: "Analytics",
+    //   className: "w-full h-20 flex-col gap-2 bg-white hover:bg-green-50",
+    //   link: "/dev/auth/game/analytics",
+    // },
   ];
 
   return (

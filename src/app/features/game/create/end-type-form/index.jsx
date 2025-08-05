@@ -14,7 +14,7 @@ import { Target } from "lucide-react";
 export default function EndTypeForm({ endSettings, error }) {
   // Game Settings State
   const [gameSettings, setGameSettings] = useState({
-    endCondition: "score", // "score", "rounds", "time"
+    endCondition: "manually", // "score", "rounds", "time"
     scoreToWin: 500,
     maxRounds: 10,
     timeLimit: 120, // minutes
@@ -36,8 +36,9 @@ export default function EndTypeForm({ endSettings, error }) {
             Game ends when:
           </Label>
           <Select
-            defaultValue={endSettings.endCondition}
+            defaultValue={"manually"}
             name="endCondition"
+            disabled={true}
             onValueChange={(value) =>
               setGameSettings((prev) => ({ ...prev, endCondition: value }))
             }
@@ -46,6 +47,7 @@ export default function EndTypeForm({ endSettings, error }) {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="manually">User manually ends the game</SelectItem>
               <SelectItem value="score">Player reaches target score</SelectItem>
               <SelectItem value="rounds">Maximum rounds completed</SelectItem>
               <SelectItem value="time">Time limit reached</SelectItem>
@@ -59,6 +61,7 @@ export default function EndTypeForm({ endSettings, error }) {
               Score to Win: {gameSettings.scoreToWin}
             </Label>
             <Slider
+              disabled={true}
               defaultValue={[endSettings.scoreToWin]}
               name="scoreToWin"
               onValueChange={([value]) =>
@@ -85,6 +88,7 @@ export default function EndTypeForm({ endSettings, error }) {
               Maximum Rounds: {gameSettings.maxRounds}
             </Label>
             <Slider
+              disabled={true}
               defaultValue={[gameSettings.maxRounds]}
               name="maxRounds"
               onValueChange={([value]) =>
@@ -108,6 +112,7 @@ export default function EndTypeForm({ endSettings, error }) {
               Time Limit: {gameSettings.timeLimit} minutes
             </Label>
             <Slider
+              disabled={true}
               defaultValue={[gameSettings.timeLimit]}
               name="timeLimit"
               onValueChange={([value]) =>
