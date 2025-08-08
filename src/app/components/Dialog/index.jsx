@@ -28,6 +28,7 @@ export default function Dialog({
   description,
   label,
   onAccept,
+  disabled = false,
 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   if (isDesktop) {
@@ -58,7 +59,7 @@ export default function Dialog({
         </DrawerHeader>
         <DrawerFooter>
           <DrawerClose>Cancel</DrawerClose>
-          <Button className={`${label.className}`} onClick={onAccept}>
+          <Button className={`${label.className}`} onClick={onAccept} disabled={disabled}>
             {label.value}
           </Button>
         </DrawerFooter>

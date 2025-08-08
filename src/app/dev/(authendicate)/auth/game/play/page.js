@@ -51,27 +51,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import AddNewPlayer from "@/app/features/game/play/add";
 
-const mockActiveGame = {
-  id: 1,
-  name: "Weekend Tournament",
-  status: "in_progress",
-  settings: {
-    endCondition: "score",
-    scoreToWin: 500,
-    maxRounds: 10,
-    timeLimit: 120,
-    winnerGetsAll: true,
-    customPoints: 50,
-  },
-  players: [
-    { id: 1, name: "Alice", score: 45, isHost: false, roundScore: 0 },
-    { id: 2, name: "Bob", score: 23, isHost: true, roundScore: 0 },
-    { id: 3, name: "Charlie", score: 67, isHost: false, roundScore: 0 },
-  ],
-  round: 3,
-  startTime: "2024-01-15T10:30:00Z",
-  events: [],
-};
 export default function GamePlay() {
   const [showAddPlayer, setShowAddPlayer] = useState(false);
   const [game, setGame] = useState({});
@@ -90,6 +69,7 @@ export default function GamePlay() {
 
   async function handleEndGame() {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/game/ongoing/end`,
         {
@@ -111,6 +91,9 @@ export default function GamePlay() {
     } catch (error) {
       console.error("Error ending game:", error);
       toast.error("Failed to end game: " + error.message);
+    } finally {
+      setIsLoading(false);
+      setShowEndGameDialog(false);
     }
   }
 
@@ -261,12 +244,15 @@ export default function GamePlay() {
         <div className="flex gap-3">
           <Button
             variant="outline"
+            disabled={isLoading}
             className="flex-1 h-12 bg-transparent"
             onClick={() => setShowEndGameDialog(true)}
           >
             End Game
           </Button>
           <Button
+            variant="outline"
+            disabled={isLoading}
             className="flex-1 h-12"
             onClick={() => setShowAddPlayer(true)}
           >
@@ -283,6 +269,7 @@ export default function GamePlay() {
         description="This will finalize the game and declare the winner based on the current scores."
         label={{ value: "End Game", className: "w-full" }}
         onAccept={handleEndGame}
+        disabled={isLoading}
       />
 
       <AddNewPlayer

@@ -1,12 +1,12 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { History } from "lucide-react";
+import { History, Timer } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
-import { gameDuration } from "@/lib/utils";
+import { formatDateTime, gameDuration } from "@/lib/utils";
 
 export default function RecentGames() {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,6 +65,26 @@ export default function RecentGames() {
                 <Skeleton className="w-25 h-3" />
               </div>
             </div>
+            <div className="flex justify-between items-between gap-2">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="w-50 h-5" />
+                <Skeleton className="w-50 h-3" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Skeleton className="w-25 h-5" />
+                <Skeleton className="w-25 h-3" />
+              </div>
+            </div>
+            <div className="flex justify-between items-between gap-2">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="w-50 h-5" />
+                <Skeleton className="w-50 h-3" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Skeleton className="w-25 h-5" />
+                <Skeleton className="w-25 h-3" />
+              </div>
+            </div>
           </>
         )}
         {!isLoading &&
@@ -75,20 +95,26 @@ export default function RecentGames() {
             >
               <div
                 key={game.id}
-                className="flex items-center justify-between py-3 border-b last:border-0 cursor-pointer hover:bg-gray-50 rounded px-2"
+                className="py-3 border-b last:border-0 cursor-pointer hover:bg-gray-50 rounded px-2"
               >
-                <div>
-                  <p className="font-medium">{game.name}</p>
-                  <p className="text-sm text-gray-500">
-                    {game.player_count} players •{" "}
-                    {gameDuration(game.start_time, game.end_time)}
-                  </p>
+                <div className="flex items-center justify-between ">
+                  <div>
+                    <p className="font-medium">{game.name}</p>
+                    <p className="text-sm text-gray-500">
+                      {game.player_count} players •{" "}
+                      {gameDuration(game.start_time, game.end_time)}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <Badge variant="outline">{game.status}</Badge>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Winner: {game.winner.map((p) => p.player_name).join(", ")}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <Badge variant="outline">{game.status}</Badge>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Winner: {game.winner.map((p) => p.player_name).join(", ")}
-                  </p>
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <Timer className="w-4 h-4 md:inline hidden" />
+                  <span>{formatDateTime(game.start_time)}</span>
                 </div>
               </div>
             </Link>

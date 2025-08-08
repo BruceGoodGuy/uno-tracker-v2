@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -61,12 +61,10 @@ const mockGameHistory = [
   },
 ];
 
-export default function GameHistory() {
+function GameHistoryContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const gameId = searchParams.get("gameId");
-  console.log("Game ID from search params:", gameId);
-  const [selectedGame, setSelectedGame] = useState(mockGameHistory[0]);
   const [game, setGame] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -244,7 +242,7 @@ export default function GameHistory() {
             </div>
             <div className="space-y-2">
               <Label className="text-sm font-medium">Players</Label>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {game.players.map((player) => (
                   <Badge key={player.player_id} variant="outline">
                     {player.name}
@@ -362,5 +360,13 @@ export default function GameHistory() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function GameHistory() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <GameHistoryContent />
+    </Suspense>
   );
 }

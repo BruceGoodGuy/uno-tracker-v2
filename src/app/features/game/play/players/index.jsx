@@ -355,56 +355,9 @@ export default function players({
                   </div>
 
                   <div className="text-right">
-                    {editingScore === player.id ? (
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          value={game.score}
-                          onChange={(e) => setTempScore(e.target.value)}
-                          className="w-20 h-8 text-center"
-                          autoFocus
-                        />
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          className="w-8 h-8"
-                          onClick={() =>
-                            handleScoreEdit(
-                              player.id,
-                              Number.parseInt(tempScore) || 0
-                            )
-                          }
-                        >
-                          <Check className="w-4 h-4 text-green-600" />
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          className="w-8 h-8"
-                          onClick={() => setEditingScore(null)}
-                        >
-                          <X className="w-4 h-4 text-red-600" />
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold">
-                          {player.score}
-                        </span>
-                        <Button
-                          size="icon"
-                          disabled={player.status === "disabled"}
-                          variant="ghost"
-                          className="w-8 h-8"
-                          onClick={() => {
-                            setEditingScore(player.id);
-                            setTempScore(player.score.toString());
-                          }}
-                        >
-                          <Edit3 className="w-4 h-4 text-gray-400" />
-                        </Button>
-                      </div>
-                    )}
+                    <div className="flex items-center gap-2">
+                      <span className="text-3xl font-bold">{player.score}</span>
+                    </div>
                   </div>
                 </div>
 
