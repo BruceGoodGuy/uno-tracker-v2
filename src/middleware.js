@@ -6,10 +6,13 @@ export async function middleware(request) {
   console.log("Middleware token:", token);
   if (token && token.value) {
     try {
+      console.log("Verifying token:", token.value);
+      console.log(`${process.env.BACKEND_URL}`);
       const data = await fetch(`${process.env.BACKEND_URL}/auth/check`, {
         method: "GET",
         headers: { Cookie: `session_token=${token.value}` },
         cache: "no-store",
+        credentials: "include",
       });
       if (!data.ok) {
         console.error("Authentication check failed:", data.statusText);
